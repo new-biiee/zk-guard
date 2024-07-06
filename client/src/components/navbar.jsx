@@ -38,14 +38,12 @@ const Navbar = () => {
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
       setAccount(accounts[0]);
 
-      // Switch to the desired network (Polygon Mumbai testnet)
       try {
         await ethereum.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x98a' }], // Chain ID for Polygon Mumbai testnet
+          params: [{ chainId: '0x98a' }],
         });
       } catch (switchError) {
-        // This error code indicates that the chain has not been added to MetaMask
         if (switchError.code === 4902) {
           try {
             await ethereum.request({
@@ -64,18 +62,6 @@ const Navbar = () => {
         } else {
           console.error('Error switching to Polygon Mumbai network:', switchError);
         }
-      }
-
-      // Now you can interact with your contract
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract("0x2923fffc9ba79400F74A3a644D966370441eD653", zkpVaultABI, signer);
-      
-      try {
-        const hasSoul = await contract.hasSoul(accounts[0]);
-        console.log("Has Soul:", hasSoul);
-      } catch (error) {
-        console.error("Error checking hasSoul:", error);
       }
     } catch (error) {
       console.error("Error connecting wallet:", error);

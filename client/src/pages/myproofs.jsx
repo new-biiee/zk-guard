@@ -1,164 +1,80 @@
 import Navbar from "../components/navbar";
 import zkpVaultABI from "../abi/zkpVault.json";
 import React from "react";
-import {
-  useContractRead,
-  useAccount,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-} from "wagmi";
 import { toast, Toaster } from "react-hot-toast";
+import { ethers } from "ethers";
+import {verifierContractAddressAge, zkpVaultContractConfigAge, verifierContractAddressCredit, zkpVaultContractConfigCredit, verifierContractAddressTwitter, zkpVaultContractConfigTwitter } from "../config"
 
 const MyProofs = () => {
   const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
-  const { address } = useAccount();
-  const [getHasSoulCredit, setHasSoulCredit] = React.useState(false);
-  const [getHasSoulTwitter, setHasSoulTwitter] = React.useState(false);
-  const [getHasSoulAge, setHasSoulAge] = React.useState(false);
+  const [hasSpiritCredit, setHasSpiritCredit] = React.useState(false);
+  const [hasSpiritTwitter, setHasSpiritTwitter] = React.useState(false);
+  const [hasSpiritAge, setHasSpiritAge] = React.useState(false);
+  const [isBurnAgeLoading, setIsBurnAgeLoading] = React.useState(false);
+  const [isBurnCreditLoading, setIsBurnCreditLoading] = React.useState(false);
+  const [isBurnTwitterLoading, setIsBurnTwitterLoading] = React.useState(false);
+  const [sltDataAge, setSltDataAge] = React.useState(null);
+  const [sltDataCredit, setSltDataCredit] = React.useState(null);
+  const [sltDataTwitter, setSltDataTwitter] = React.useState(null);
 
-  const zkpVaultContractConfigAge = {
-    address: "0x8f017C15DE334adeCB03069F2533F1230617d2D0",
-    abi: zkpVaultABI,
-    chainId: 80001,
-  };
-
-  const zkpVaultContractConfigCredit = {
-    address: "0x0E75923149e6857Dc596f1ade0E1919200973629",
-    abi: zkpVaultABI,
-    chainId: 80001,
-  };
-
-  const zkpVaultContractConfigTwitter = {
-    address: "0x2923fffc9ba79400F74A3a644D966370441eD653",
-    abi: zkpVaultABI,
-    chainId: 80001,
-  };
-
-  const { data: sbtDataAge } = useContractRead({
-    ...zkpVaultContractConfigAge,
-    functionName: "getSBTData",
-    watch: true,
-    args: [address],
-  });
-
-  const { data: hasSoulAge } = useContractRead({
-    ...zkpVaultContractConfigAge,
-    functionName: "hasSoul",
-    watch: true,
-    args: [address],
-  });
-
-  const { data: sbtDataCredit } = useContractRead({
-    ...zkpVaultContractConfigCredit,
-    functionName: "getSBTData",
-    watch: true,
-    args: [address],
-  });
-
-  const { data: sbtDataTwitter } = useContractRead({
-    ...zkpVaultContractConfigTwitter,
-    functionName: "getSBTData",
-    watch: true,
-    args: [address],
-  });
-
-  const { data: hasSoulCredit } = useContractRead({
-    ...zkpVaultContractConfigCredit,
-    functionName: "hasSoul",
-    watch: true,
-    args: [address],
-  });
-
-  const { data: hasSoulTwitter } = useContractRead({
-    ...zkpVaultContractConfigTwitter,
-    functionName: "hasSoul",
-    watch: true,
-    args: [address],
-  });
-
-  // Age Proof Burn
-
-  const { config: zkpVaultBurnAgeConfig } = usePrepareContractWrite({
-    ...zkpVaultContractConfigAge,
-    functionName: "burn",
-    args: [address],
-  });
-
-  const {
-    data: burnDataAge,
-    write: burnAge,
-    isLoading: isBurnAgeLoading,
-    isSuccess: isBurnAgeStarted,
-    error: burnErrorAge,
-  } = useContractWrite(zkpVaultBurnAgeConfig);
-
-  // Credit Proof Burn
-  const { config: zkpVaultBurnCreditConfig } = usePrepareContractWrite({
-    ...zkpVaultContractConfigCredit,
-    functionName: "burn",
-    args: [address],
-  });
-
-  const {
-    data: burnDataCredit,
-    write: burnCredit,
-    isLoading: isBurnCreditLoading,
-    isSuccess: isBurnCreditStarted,
-    error: burnErrorCredit,
-  } = useContractWrite(zkpVaultBurnCreditConfig);
-
-  // Twitter Proof Burn
-  const { config: zkpVaultBurnTwitterConfig } = usePrepareContractWrite({
-    ...zkpVaultContractConfigTwitter,
-    functionName: "burn",
-    args: [address],
-  });
-
-  const {
-    data: burnData,
-    write: burnTwitter,
-    isLoading: isBurnTwitterLoading,
-    isSuccess: isBurnTwitterStarted,
-    error: burnError,
-  } = useContractWrite(zkpVaultBurnTwitterConfig);
-
-  const {
-    data: txData,
-    isSuccess: txSuccess,
-    error: txError,
-  } = useWaitForTransaction({
-    hash: burnData?.hash,
-  });
-
-  const hanldleBurnAgeButton = () => {
-    burnAge?.();
-  };
-
-  const handleBurnCreditButton = () => {
-    burnCredit?.();
-  };
-
-  const handleBurnTwitterButton = () => {
-    burnTwitter?.();
-  };
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const address = signer.getAddress();
+  const ageContract = new ethers.Contract(zkpVaultContractConfigAge.address, zkpVaultContractConfigAge.abi, signer);
+  const creditContract = new ethers.Contract(zkpVaultContractConfigCredit.address, zkpVaultContractConfigCredit.abi, signer);
+  const twitterContract = new ethers.Contract(zkpVaultContractConfigTwitter.address, zkpVaultContractConfigTwitter.abi, signer);
 
   React.useEffect(() => {
-    if (hasSoulCredit) {
-      setHasSoulCredit(true);
-    } else {
-      setHasSoulCredit(false);
-    }
-  }, [hasSoulCredit]);
+    setMounted(true);
+    fetchSpiritStatus();
+  }, []);
 
-  React.useEffect(() => {
-    if (hasSoulTwitter) {
-      setHasSoulTwitter(true);
-    } else {
-      setHasSoulTwitter(false);
+  const fetchSpiritStatus = async () => {
+    try {
+      const [ageSpirit, creditSpirit, twitterSpirit] = await Promise.all([
+        ageContract.hasSpirit(address),
+        creditContract.hasSpirit(address),
+        twitterContract.hasSpirit(address)
+      ]);
+      setHasSpiritAge(ageSpirit);
+      setHasSpiritCredit(creditSpirit);
+      setHasSpiritTwitter(twitterSpirit);
+
+      if (ageSpirit) fetchSltData(ageContract, setSltDataAge);
+      if (creditSpirit) fetchSltData(creditContract, setSltDataCredit);
+      if (twitterSpirit) fetchSltData(twitterContract, setSltDataTwitter);
+    } catch (error) {
+      console.error("Error fetching spirit status: ", error);
     }
-  }, [hasSoulTwitter]);
+  };
+
+  const fetchSltData = async (contract, setStateFunction) => {
+    try {
+      const data = await contract.getSLTData(address);
+      setStateFunction(data);
+    } catch (error) {
+      console.error("Error fetching SLT data: ", error);
+    }
+  };
+
+  const burnProof = async (contract, setLoadingState, proofType) => {
+    setLoadingState(true);
+    try {
+      const tx = await contract.burn(address);
+      await tx.wait();
+      toast.success(`${proofType} proof burned successfully`);
+      fetchSpiritStatus(); // Refresh the status after burning
+    } catch (error) {
+      console.error(`Error burning ${proofType} proof: `, error);
+      toast.error(`Failed to burn ${proofType} proof`);
+    }
+    setLoadingState(false);
+  };
+
+  const handleBurnAgeButton = () => burnProof(ageContract, setIsBurnAgeLoading, "Age");
+  const handleBurnCreditButton = () => burnProof(creditContract, setIsBurnCreditLoading, "Credit");
+  const handleBurnTwitterButton = () => burnProof(twitterContract, setIsBurnTwitterLoading, "Twitter");
+
   return (
     <div className="h-[100vh] w-full bg-gradient-to-r from-blue-400 to-cyan-400">
       <Toaster />
@@ -172,7 +88,7 @@ const MyProofs = () => {
           <p>Verification Key</p>
           <p> </p>
         </div>
-        {!hasSoulCredit && !hasSoulTwitter &&  !hasSoulAge &&(
+        {!hasSpiritCredit && !hasSpiritTwitter &&  !hasSpiritAge &&(
           <div className="w-full p-3 bg-violet-300 border border-violet-400 justify-items-cente rounded-xl">
             <p className="text-center italic text-xl">
               No Proofs found. You can Generate Proof{" "}
@@ -185,13 +101,13 @@ const MyProofs = () => {
             </p>
           </div>
         )}
-        {hasSoulCredit && (
+        {hasSpiritCredit && (
           <div className="p-3 bg-violet-300 border border-violet-400 justify-items-center  grid grid-cols-3 rounded-xl ">
             <p className="w-fit text-xl font-bold">Proof of Credit 💸</p>
             <p
               className="cursor-pointer font-mono hover:underline font-bold"
               onClick={() => {
-                navigator.clipboard.writeText(sbtDataCredit);
+                navigator.clipboard.writeText(JSON.stringify(sltDataCredit));
                 toast("Copied to Clipboard", {
                   icon: "📋",
                 });
@@ -200,23 +116,21 @@ const MyProofs = () => {
               Copy Verification Key
             </p>
             <button
-              onClick={() => handleBurnCreditButton()}
+              onClick={handleBurnCreditButton}
               className="px-4 py-2 border border-red-500  w-fit  bg-red-400 text-white rounded-xl"
             >
-              {isBurnCreditLoading && "Waiting for Approval"}
-              {isBurnCreditStarted && "Burning..."}
-              {!isBurnCreditLoading && !isBurnCreditStarted && "Burn SLT"}
+              {isBurnCreditLoading ? "Burning..." : "Burn SLT"}
             </button>
           </div>
         )}
 
-        {hasSoulTwitter && (
+        {hasSpiritTwitter && (
           <div className="p-3 bg-violet-300 border border-violet-400 grid grid-cols-3 justify-items-center rounded-xl ">
             <p className="text-xl font-bold">Proof of Followers 👥</p>
             <p
               className="cursor-pointer font-mono hover:underline font-bold"
               onClick={() => {
-                navigator.clipboard.writeText(sbtDataTwitter);
+                navigator.clipboard.writeText(JSON.stringify(sltDataTwitter));
                 toast("Copied to Clipboard", {
                   icon: "📋",
                 });
@@ -225,23 +139,21 @@ const MyProofs = () => {
               Copy Verification Key
             </p>
             <button
-              onClick={() => handleBurnTwitterButton()}
+              onClick={handleBurnTwitterButton}
               className="px-4 py-2 border border-red-500  w-fit  bg-red-400 text-white rounded-xl"
             >
-              {isBurnTwitterLoading && "Waiting for Approval"}
-              {isBurnTwitterStarted && "Burning..."}
-              {!isBurnTwitterLoading && !isBurnTwitterStarted && "Burn SLT"}
+              {isBurnTwitterLoading ? "Burning..." : "Burn SLT"}
             </button>
           </div>
         )}
 
-        {hasSoulAge && (
+        {hasSpiritAge && (
           <div className="p-3 bg-violet-300 border border-violet-400 grid grid-cols-3 justify-items-center rounded-xl ">
             <p className="text-xl font-bold">Proof of Age 🔞</p>
             <p
               className="cursor-pointer font-mono hover:underline font-bold"
               onClick={() => {
-                navigator.clipboard.writeText(sbtDataAge);
+                navigator.clipboard.writeText(JSON.stringify(sltDataAge));
                 toast("Copied to Clipboard", {
                   icon: "📋",
                 });
@@ -250,12 +162,10 @@ const MyProofs = () => {
               Copy Verification Key
             </p>
             <button
-              onClick={() => hanldleBurnAgeButton()}
+              onClick={handleBurnAgeButton}
               className="px-4 py-2 border border-red-500  w-fit  bg-red-400 text-white rounded-xl"
             >
-              {isBurnAgeLoading && "Waiting for Approval"}
-              {isBurnAgeStarted && "Burning..."}
-              {!isBurnAgeLoading && !isBurnAgeStarted && "Burn SLT"}
+              {isBurnAgeLoading ? "Burning..." : "Burn SLT"}
             </button>
           </div>
         )}
