@@ -28,4 +28,4 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// The AgeVerifier contract address is 0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70
+// The AgeVerifier contract address is 0x8A4AA4679EB53507023F74897aE3A8570fa224ca

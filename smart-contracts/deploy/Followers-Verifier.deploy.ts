@@ -29,4 +29,4 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// The FollowerVerifier contract address is 0xb722Fb125f85D727a2e766C4e3A86E205746D0A3
+// The FollowerVerifier contract address is 0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1

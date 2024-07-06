@@ -29,4 +29,4 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// The CreditScoreVerifier contract address is 0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1
+// The CreditScoreVerifier contract address is 0x50Ad8604CabeE301e45069603Ba0253A8010DF14
