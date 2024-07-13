@@ -1,52 +1,23 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="../client/public/Spirit_Link-removebg-preview.png" alt="Logo" width="100" height="100">
+  <a href="">
+    <img src="./client/public/Spirit_Link-removebg-preview.png" alt="Logo" width="100" height="100">
   </a>
 
-  <h3 align="center">Spirit-Link</h3>
+  <h3 align="center">zk Guard</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+Elevate Security, Simplify Identity - Zero Compromises, Zero Worries, Zero Knowledge Proof!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/new-biiee/zk-guard/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/new-biiee/zk-guard/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/new-biiee/zk-guard/issues">Request Feature</a>
   </p>
 </div>
 
@@ -66,9 +37,6 @@
 - [Use Case Example](#use-case-example)
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-- [Future Work](#future-work)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -79,41 +47,46 @@
 <!-- ABOUT THE PROJECT -->
 
 ## Introduction:
-Spirit Link addresses the pervasive issue of individuals divulging excessive personal information for identity verification purposes. The platform enables users to provide only the necessary proof without compromising additional details. This innovation enhances privacy, simplifies processes, and fortifies security, fundamentally transforming online services. spirit link operates on Zero Knowledge technology, a paradigm shift in data protection.
+**zk Guard** addresses the pervasive issue of individuals divulging excessive personal information for identity verification purposes. The platform enables users to provide only the necessary proof without compromising additional details. This innovation enhances privacy, simplifies processes, and fortifies security, fundamentally transforming online services. zk Guard operates on Zero Knowledge technology (**snarkjs** and **Groth16**), marking a paradigm shift in data protection.
+
+## Motivation
+The idea for zk Guard was inspired by **Vitalik Buterin's** article on Soulbound tokens and on-chain identity, detailed in [here](https://vitalik.eth.limo/general/2022/01/26/soulbound.html). Recognizing the need for improved user privacy and streamlined verification processes, we developed zk Guard to enable users to create their on-chain identity or meet app-specific requirements seamlessly. Unlike other solutions such as Sismo, zk Guard emphasizes ease of use and developer-friendliness. Application developers can integrate zk Guard without the need of redirecting users from the consumer app. Verification is conducted by implementing the read function of verifier contracts, ensuring a smooth and efficient user experience.
 
 ## User Flow:
 
+![zk-Guard-Flow](./assets/user-flow.png)
+
 ### Authentication Process:
 - Users initiate the Proof generation by validating an anonymized claim pertaining to their exclusive data.
-- Utilizing snarkjs and Groth16, a verification process is initiated to generate a proof.
-- Spirit link employs smart contracts to validate and tokenize the proof as a non-transferable token (SLT).
+- Utilizing **snarkjs** and **Groth16**, a verification process is initiated to generate a proof.
+- zk Guard employs smart contracts to validate and tokenize the proof as a non-transferable token (SLT).
 
 ### Proof Tokenization:
-- The generated proofs, now represented as SBTs, embody authenticated claims sanctioned by zkVault.
-- The SBTs are minted on-chain, aligning with the expanding web3 applications ecosystem.
-- Badges, in the form of SBTs, signify verified actions within a user's digital identity. For instance, a ZK SBT could confirm a user's attainment of a specific threshold of Twitter followers.
+- The generated proofs, now represented as SLTs, embody authenticated claims sanctioned by zk Guard.
+- The SLTs are minted on-chain, aligning with the expanding web3 applications ecosystem.
+- Badges, in the form of SLTs, signify verified actions within a user's digital identity. For instance, a ZK SLT could confirm a user's attainment of a specific threshold of Twitter followers.
 
 ## Key Features:
 
   ### Privacy-Centric Approach:
-  zkVault allows users to disclose only essential proof, preserving the confidentiality of additional information.
+  zk Guard allows users to disclose only essential proof, preserving the confidentiality of additional information.
 
 ### Streamlined Processes:
 The platform streamlines identity verification processes by leveraging Zero Knowledge technology.
 
 ### Enhanced Security:
-Through the use of non-transferable SBTs, zkVault ensures the security and integrity of verified claims.
+Through the use of non-transferable SLTs, zk Guard ensures the security and integrity of verified claims.
 
 ### Trustworthy Online Services:
-The implementation of zkVault instills trust in online services by offering a secure repository for proofs, making interactions more reliable for all stakeholders.
+The implementation of zk Guard instills trust in online services by offering a secure repository for proofs, making interactions more reliable for all stakeholders.
 
 ### Compatibility with Web3:
-SBTs issued by zkVault align seamlessly with the web3 applications ecosystem, fostering compatibility and interoperability.
+SLTs issued by zk Guard align seamlessly with the web3 applications ecosystem, fostering compatibility and interoperability.
 
 ## Use Case Example:
-A user may possess a ZK SBT demonstrating they meet a specific threshold of Twitter followers, illustrating the versatility and applicability of zkVault in various contexts.
+A user may possess a ZK SLT demonstrating they meet a specific threshold of Twitter followers, illustrating the versatility and applicability of zk Guard in various contexts.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://github.com/new-biiee/zk-guard/README.md)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,58 +94,25 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+### LUKSO's Spec
+- [SpiritLink for CreditScore](https://cardona-zkevm.polygonscan.com/address/0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540) (polygon cardona tesetnet deployment link) `0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540`
+- [SpiritLink for Follower](https://cardona-zkevm.polygonscan.com/address/0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1) (polygon cardona tesetnet deployment link) `0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1`
+- [SpiritLink for Age](https://cardona-zkevm.polygonscan.com/address/0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70) (polygon cardona tesetnet deployment link) `0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70`
+- [CreditScore-Verifier](https://cardona-zkevm.polygonscan.com/address/0x50Ad8604CabeE301e45069603Ba0253A8010DF14) (polygon cardona tesetnet deployment link) `0x50Ad8604CabeE301e45069603Ba0253A8010DF14`
+- [Follower-Verifier](https://cardona-zkevm.polygonscan.com/address/0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1) (polygon cardona tesetnet deployment link) `0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1`
+- [Age-Verifier](https://cardona-zkevm.polygonscan.com/address/0x8A4AA4679EB53507023F74897aE3A8570fa224ca) (polygon cardona tesetnet deployment link) `0x8A4AA4679EB53507023F74897aE3A8570fa224ca`
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+### Other Spec
+
+- [React][react-url]
+- [Hardhat](https://hardhat.org/)
+- [Foundry](https://book.getfoundry.sh/)
+- [Express](https://expressjs.com/)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
+<!-- ROADMAP
 ## Future Work:
 
 - [x] Add Changelog
@@ -185,7 +125,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 See the [open issues](https://github.com/startup-dreamer/ZeroGuard/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -219,9 +159,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Krieger]([https://twitter.com/your_username](https://twitter.com/Startup_dmr)) - prsumit35@gmail.com
+Team Lead - [@Krieger]([https://twitter.com/your_username](https://twitter.com/Startup_dmr)) - prsumit35@gmail.com
 
-Project Link: [https://github.com/startup-dreamer/ZeroGuard](https://github.com/startup-dreamer/ZeroGuard)
+Project Link: [https://github.com/new-biiee/zk-guard](https://github.com/new-biiee/zk-guard)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -229,17 +169,14 @@ Project Link: [https://github.com/startup-dreamer/ZeroGuard](https://github.com/
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
+We extend our gratitude to Polygon and Devfolio for making the HackOn Blocks 2024 possible. We greatly appreciate any guidance and feedback from the judges and the community.
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+* [Vitalik's views on Soul Tokens](https://vitalik.eth.limo/general/2022/01/26/soulbound.html)
+* [Polygon's Documentation](https://docs.polygon.technology/)
+* [zkEVM Overview](https://docs.polygon.technology/zkEVM/overview/)
+* [Connecting to Cardona](https://docs.polygon.technology/zkEVM/get-started/quick-start/)
+* [Developer Tools](https://docs.polygon.technology/tools/)
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

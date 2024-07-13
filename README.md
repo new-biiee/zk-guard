@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="">
     <img src="./client/public/Spirit_Link-removebg-preview.png" alt="Logo" width="100" height="100">
   </a>
 
@@ -47,10 +47,10 @@ Elevate Security, Simplify Identity - Zero Compromises, Zero Worries, Zero Knowl
 <!-- ABOUT THE PROJECT -->
 
 ## Introduction:
-**zk Guard** addresses the pervasive issue of individuals divulging excessive personal information for identity verification purposes. The platform enables users to provide only the necessary proof without compromising additional details. This innovation enhances privacy, simplifies processes, and fortifies security, fundamentally transforming online services. zk Guard operates on Zero Knowledge technology, a paradigm shift in data protection.
+**zk Guard** addresses the pervasive issue of individuals divulging excessive personal information for identity verification purposes. The platform enables users to provide only the necessary proof without compromising additional details. This innovation enhances privacy, simplifies processes, and fortifies security, fundamentally transforming online services. zk Guard operates on Zero Knowledge technology (**snarkjs** and **Groth16**), marking a paradigm shift in data protection.
 
 ## Motivation
-
+The idea for zk Guard was inspired by **Vitalik Buterin's** article on Soulbound tokens and on-chain identity, detailed in [here](https://vitalik.eth.limo/general/2022/01/26/soulbound.html). Recognizing the need for improved user privacy and streamlined verification processes, we developed zk Guard to enable users to create their on-chain identity or meet app-specific requirements seamlessly. Unlike other solutions such as Sismo, zk Guard emphasizes ease of use and developer-friendliness. Application developers can integrate zk Guard without the need of redirecting users from the consumer app. Verification is conducted by implementing the read function of verifier contracts, ensuring a smooth and efficient user experience.
 
 ## User Flow:
 
@@ -58,7 +58,7 @@ Elevate Security, Simplify Identity - Zero Compromises, Zero Worries, Zero Knowl
 
 ### Authentication Process:
 - Users initiate the Proof generation by validating an anonymized claim pertaining to their exclusive data.
-- Utilizing snarkjs and Groth16, a verification process is initiated to generate a proof.
+- Utilizing **snarkjs** and **Groth16**, a verification process is initiated to generate a proof.
 - zk Guard employs smart contracts to validate and tokenize the proof as a non-transferable token (SLT).
 
 ### Proof Tokenization:
@@ -95,13 +95,12 @@ _For more examples, please refer to the [Documentation](https://github.com/new-b
 ## Built With
 
 ### LUKSO's Spec
-
-- [SpiritLink for CreditScore](https://explorer.execution.testnet.lukso.network/address/0x8A4AA4679EB53507023F74897aE3A8570fa224ca) (lukso tesetnet deployment link) `0x8A4AA4679EB53507023F74897aE3A8570fa224ca`
-- [SpiritLink for Follower](https://explorer.execution.testnet.lukso.network/address/0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540) (lukso tesetnet deployment link) `0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540`
-- [SpiritLink for Age](https://explorer.execution.testnet.lukso.network/address/0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1) (lukso tesetnet deployment link) `0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1`
-- [CreditScore-Verifier](https://explorer.execution.testnet.lukso.network/address/0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70) (lukso tesetnet deployment link) `0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70`
-- [Follower-Verifier](https://explorer.execution.testnet.lukso.network/address/0xb722Fb125f85D727a2e766C4e3A86E205746D0A3) (lukso tesetnet deployment link) `0xb722Fb125f85D727a2e766C4e3A86E205746D0A3`
-- [Age-Verifier](https://explorer.execution.testnet.lukso.network/address/0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1) (lukso tesetnet deployment link) `0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1`
+- [SpiritLink for CreditScore](https://cardona-zkevm.polygonscan.com/address/0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540) (polygon cardona tesetnet deployment link) `0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540`
+- [SpiritLink for Follower](https://cardona-zkevm.polygonscan.com/address/0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1) (polygon cardona tesetnet deployment link) `0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1`
+- [SpiritLink for Age](https://cardona-zkevm.polygonscan.com/address/0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70) (polygon cardona tesetnet deployment link) `0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70`
+- [CreditScore-Verifier](https://cardona-zkevm.polygonscan.com/address/0x50Ad8604CabeE301e45069603Ba0253A8010DF14) (polygon cardona tesetnet deployment link) `0x50Ad8604CabeE301e45069603Ba0253A8010DF14`
+- [Follower-Verifier](https://cardona-zkevm.polygonscan.com/address/0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1) (polygon cardona tesetnet deployment link) `0xD1fc6A6300B65A9996207B1B137739F5FECfe1E1`
+- [Age-Verifier](https://cardona-zkevm.polygonscan.com/address/0x8A4AA4679EB53507023F74897aE3A8570fa224ca) (polygon cardona tesetnet deployment link) `0x8A4AA4679EB53507023F74897aE3A8570fa224ca`
 
 ### Other Spec
 
@@ -170,11 +169,9 @@ Project Link: [https://github.com/new-biiee/zk-guard](https://github.com/new-bii
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
+We extend our gratitude to Polygon and Devfolio for making the HackOn Blocks 2024 possible. We greatly appreciate any guidance and feedback from the judges and the community.
 
-Thanks to all the sponsors and organizers for making this BuildUP #2 by LUKSO possible.
-Mentors have been helping us, giving reviews with various aspects of the project and we are grateful to them for that.
-
-* [Vitalik's iews on Soul Tokens](https://vitalik.eth.limo/general/2022/01/26/soulbound.html)
+* [Vitalik's views on Soul Tokens](https://vitalik.eth.limo/general/2022/01/26/soulbound.html)
 * [Polygon's Documentation](https://docs.polygon.technology/)
 * [zkEVM Overview](https://docs.polygon.technology/zkEVM/overview/)
 * [Connecting to Cardona](https://docs.polygon.technology/zkEVM/get-started/quick-start/)
