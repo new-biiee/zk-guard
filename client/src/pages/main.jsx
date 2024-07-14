@@ -31,7 +31,7 @@ const Main = () => {
           Mint your own SLT
         </button></a>
 
-        <a href="https://zkp-vault-demo.vercel.app/"><button className=" w-[170px]  py-3 bg-[#191919] text-white rounded-md font-semibold">
+        <a href=""><button className=" w-[170px]  py-3 bg-[#191919] text-white rounded-md font-semibold">
           Demo App ↗
         </button></a>
       </div>
