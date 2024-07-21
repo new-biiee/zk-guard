@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import image from "../assets/logo192.svg";
-import zkpVaultABI from "../abi/zkpVault.json";
+import zkGuardABI from "../abi/zkGuard.json";
 
 const Navbar = () => {
   const [account, setAccount] = useState("");

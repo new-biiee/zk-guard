@@ -16,7 +16,7 @@ const Main = () => {
         <br /> When minting a Proof, a user generates a proof to authenticate an
         anonymized verifiable claim about some data that only they own. Then
         using snarkjs and Groth16 a proof is generated and proof is then
-        verified and tokenized as a SLT by zkpVault—smart contracts that convert
+        verified and tokenized as a SLT by zkGuard—smart contracts that convert
         proven data into non-transferable tokens (SLTs) As SLT are issued as
         tokens on-chain, they are compatible with the burgeoning ecosystem of
         web3 applications.As such, Badges represent verified acts about a user’s

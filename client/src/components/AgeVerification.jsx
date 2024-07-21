@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import dobToAge from "dob-to-age";
 import React from "react";
 import axios from "axios";
-import {zkpVaultContractConfigAge, verifierContractAddressAge} from "../config"
+import {zkGuardContractConfigAge, verifierContractAddressAge} from "../config"
 
 const AgeVerification = () => {
   const [mounted, setMounted] = React.useState(false);
@@ -12,7 +12,7 @@ const AgeVerification = () => {
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contract = new ethers.Contract(zkpVaultContractConfigAge.address, zkpVaultContractConfigAge.abi, signer);
+  const contract = new ethers.Contract(zkGuardContractConfigAge.address, zkGuardContractConfigAge.abi, signer);
 
   const [proofStatus, setProofStatus] = React.useState(false);
   const [isMinted, setIsMinted] = React.useState(false);

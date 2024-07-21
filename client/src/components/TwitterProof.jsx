@@ -2,7 +2,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { ethers } from "ethers";
 import React from "react";
 import axios from "axios";
-import {zkpVaultContractConfigTwitter, verifierContractAddressTwitter} from "../config"
+import {zkGuardContractConfigTwitter, verifierContractAddressTwitter} from "../config"
 
 const TwitterFollowers = () => {
   const [mounted, setMounted] = React.useState(false);
@@ -10,7 +10,7 @@ const TwitterFollowers = () => {
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contract = new ethers.Contract(zkpVaultContractConfigTwitter.address, zkpVaultContractConfigTwitter.abi, signer);
+  const contract = new ethers.Contract(zkGuardContractConfigTwitter.address, zkGuardContractConfigTwitter.abi, signer);
 
   const [proofStatus, setProofStatus] = React.useState(false);
   const [isMinting, setIsMinting] = React.useState(false);

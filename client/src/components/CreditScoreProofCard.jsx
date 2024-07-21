@@ -2,7 +2,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { ethers } from "ethers";
 import React from "react";
 import axios from "axios";
-import { zkpVaultContractConfigCredit, verifierContractAddressCredit } from "../config";
+import { zkGuardContractConfigCredit, verifierContractAddressCredit } from "../config";
 
 const CreditScore = () => {
   const [mounted, setMounted] = React.useState(false);
@@ -10,7 +10,7 @@ const CreditScore = () => {
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contract = new ethers.Contract(zkpVaultContractConfigCredit.address, zkpVaultContractConfigCredit.abi, signer);
+  const contract = new ethers.Contract(zkGuardContractConfigCredit.address, zkGuardContractConfigCredit.abi, signer);
 
   const [proofStatus, setProofStatus] = React.useState(false);
   const [isMinted, setIsMinted] = React.useState(false);

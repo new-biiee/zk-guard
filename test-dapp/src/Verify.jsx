@@ -4,9 +4,9 @@ import {
   verifierContractAddressAge,
   verifierContractAddressCredit,
   verifierContractAddressTwitter,
-  zkpVaultContractConfigAge,
-  zkpVaultContractConfigCredit,
-  zkpVaultContractConfigTwitter,
+  zkGuardContractConfigAge,
+  zkGuardContractConfigCredit,
+  zkGuardContractConfigTwitter,
 } from "./public";
 
 const Verify = () => {
@@ -98,9 +98,9 @@ const Verify = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
-    const contractAge = new ethers.Contract(zkpVaultContractConfigAge.address, zkpVaultContractConfigAge.abi, signer);
-    const contractCredit = new ethers.Contract(zkpVaultContractConfigCredit.address, zkpVaultContractConfigCredit.abi, signer);
-    const contractTwitter = new ethers.Contract(zkpVaultContractConfigTwitter.address, zkpVaultContractConfigTwitter.abi, signer);
+    const contractAge = new ethers.Contract(zkGuardContractConfigAge.address, zkGuardContractConfigAge.abi, signer);
+    const contractCredit = new ethers.Contract(zkGuardContractConfigCredit.address, zkGuardContractConfigCredit.abi, signer);
+    const contractTwitter = new ethers.Contract(zkGuardContractConfigTwitter.address, zkGuardContractConfigTwitter.abi, signer);
 
     try {
       const [spiritAge, spiritCredit, spiritTwitter] = await Promise.all([

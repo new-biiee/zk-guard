@@ -1,9 +1,9 @@
 import Navbar from "../components/navbar";
-import zkpVaultABI from "../abi/zkpVault.json";
+import zkGuardABI from "../abi/zkGuard.json";
 import React from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { ethers } from "ethers";
-import {verifierContractAddressAge, zkpVaultContractConfigAge, verifierContractAddressCredit, zkpVaultContractConfigCredit, verifierContractAddressTwitter, zkpVaultContractConfigTwitter } from "../config"
+import {verifierContractAddressAge, zkGuardContractConfigAge, verifierContractAddressCredit, zkGuardContractConfigCredit, verifierContractAddressTwitter, zkGuardContractConfigTwitter } from "../config"
 
 const MyProofs = () => {
   const [mounted, setMounted] = React.useState(false);
@@ -20,9 +20,9 @@ const MyProofs = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const address = signer.getAddress();
-  const ageContract = new ethers.Contract(zkpVaultContractConfigAge.address, zkpVaultContractConfigAge.abi, signer);
-  const creditContract = new ethers.Contract(zkpVaultContractConfigCredit.address, zkpVaultContractConfigCredit.abi, signer);
-  const twitterContract = new ethers.Contract(zkpVaultContractConfigTwitter.address, zkpVaultContractConfigTwitter.abi, signer);
+  const ageContract = new ethers.Contract(zkGuardContractConfigAge.address, zkGuardContractConfigAge.abi, signer);
+  const creditContract = new ethers.Contract(zkGuardContractConfigCredit.address, zkGuardContractConfigCredit.abi, signer);
+  const twitterContract = new ethers.Contract(zkGuardContractConfigTwitter.address, zkGuardContractConfigTwitter.abi, signer);
 
   React.useEffect(() => {
     setMounted(true);
