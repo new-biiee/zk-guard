@@ -104,6 +104,8 @@ const AgeVerification = () => {
   const getCallDataFromServer = React.useCallback(async () => {
     try {
       const age = dobToAge(getAge);
+      console.log("dob", getAge);
+      console.log("age", age);
       const response = await axios.get(
         `http://localhost:8080/api/age/generate-call-data?age=${age}`
       );

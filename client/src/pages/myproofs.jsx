@@ -16,20 +16,55 @@ const MyProofs = () => {
   const [sltDataAge, setSltDataAge] = React.useState(null);
   const [sltDataCredit, setSltDataCredit] = React.useState(null);
   const [sltDataTwitter, setSltDataTwitter] = React.useState(null);
+  const [address, setAddress] = React.useState(null);
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const address = signer.getAddress();
-  const ageContract = new ethers.Contract(zkGuardContractConfigAge.address, zkGuardContractConfigAge.abi, signer);
-  const creditContract = new ethers.Contract(zkGuardContractConfigCredit.address, zkGuardContractConfigCredit.abi, signer);
-  const twitterContract = new ethers.Contract(zkGuardContractConfigTwitter.address, zkGuardContractConfigTwitter.abi, signer);
+  const [provider, setProvider] = React.useState(null);
+  const [signer, setSigner] = React.useState(null);
+  const [ageContract, setAgeContract] = React.useState(null);
+  const [creditContract, setCreditContract] = React.useState(null);
+  const [twitterContract, setTwitterContract] = React.useState(null);
 
   React.useEffect(() => {
-    setMounted(true);
-    fetchSpiritStatus();
+    const initializeEthers = async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        setProvider(provider);
+        
+        try {
+          await provider.send("eth_requestAccounts", []);
+          const signer = provider.getSigner();
+          setSigner(signer);
+          
+          const address = await signer.getAddress();
+          setAddress(address);
+          
+          setAgeContract(new ethers.Contract(zkGuardContractConfigAge.address, zkGuardContractConfigAge.abi, signer));
+          setCreditContract(new ethers.Contract(zkGuardContractConfigCredit.address, zkGuardContractConfigCredit.abi, signer));
+          setTwitterContract(new ethers.Contract(zkGuardContractConfigTwitter.address, zkGuardContractConfigTwitter.abi, signer));
+          
+          setMounted(true);
+        } catch (error) {
+          console.error("Failed to initialize ethers:", error);
+          toast.error("Failed to connect to wallet. Please make sure you're connected to MetaMask.");
+        }
+      } else {
+        console.error("Ethereum object not found, do you have MetaMask installed?");
+        toast.error("MetaMask not detected. Please install MetaMask to use this dApp.");
+      }
+    };
+
+    initializeEthers();
   }, []);
 
+  React.useEffect(() => {
+    if (mounted && address) {
+      fetchSpiritStatus();
+    }
+  }, [mounted, address]);
+
   const fetchSpiritStatus = async () => {
+    if (!ageContract || !creditContract || !twitterContract || !address) return;
+
     try {
       const [ageSpirit, creditSpirit, twitterSpirit] = await Promise.all([
         ageContract.hasSpirit(address),
@@ -45,19 +80,25 @@ const MyProofs = () => {
       if (twitterSpirit) fetchSltData(twitterContract, setSltDataTwitter);
     } catch (error) {
       console.error("Error fetching spirit status: ", error);
+      toast.error("Failed to fetch proof status. Please try again.");
     }
   };
 
   const fetchSltData = async (contract, setStateFunction) => {
+    if (!contract || !address) return;
+
     try {
       const data = await contract.getSLTData(address);
       setStateFunction(data);
     } catch (error) {
       console.error("Error fetching SLT data: ", error);
+      toast.error("Failed to fetch proof data. Please try again.");
     }
   };
 
   const burnProof = async (contract, setLoadingState, proofType) => {
+    if (!contract || !address) return;
+
     setLoadingState(true);
     try {
       const tx = await contract.burn(address);
@@ -74,6 +115,10 @@ const MyProofs = () => {
   const handleBurnAgeButton = () => burnProof(ageContract, setIsBurnAgeLoading, "Age");
   const handleBurnCreditButton = () => burnProof(creditContract, setIsBurnCreditLoading, "Credit");
   const handleBurnTwitterButton = () => burnProof(twitterContract, setIsBurnTwitterLoading, "Twitter");
+
+  if (!mounted) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="h-[100vh] w-full bg-gradient-to-r from-blue-400 to-cyan-400">
