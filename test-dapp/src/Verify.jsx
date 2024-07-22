@@ -17,6 +17,9 @@ const Verify = () => {
   const [hasSpiritCredit, setHasSpiritCredit] = useState(false);
   const [hasSpiritAge, setHasSpiritAge] = useState(false);
   const [account, setAccount] = useState(null);
+  const [eligibleAge, setEligibleAge] = useState(true);
+  const [eligibleCredit, setEligibleCredit] = useState(true);
+  const [eligibleTwitter, setEligibleTwitter] = useState(true);
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -114,18 +117,39 @@ const Verify = () => {
       setHasSpiritTwitter(spiritTwitter);
 
       if (spiritAge) {
-        const verifiedAgeResult = await contractAge.validateAttribute(accountAddress, verifierContractAddressAge);
-        setVerifiedAge(verifiedAgeResult);
+        try {
+          const verifiedAgeResult = await contractAge.validateAttribute(accountAddress, verifierContractAddressAge);
+          setVerifiedAge(verifiedAgeResult);
+          setEligibleAge(true);
+        } catch (error) {
+          console.error("Age verification failed:", error);
+          setVerifiedAge(false);
+          setEligibleAge(false);
+        }
       }
 
       if (spiritCredit) {
-        const verifiedCreditResult = await contractCredit.validateAttribute(accountAddress, verifierContractAddressCredit);
-        setVerifiedCredit(verifiedCreditResult);
+        try {
+          const verifiedCreditResult = await contractCredit.validateAttribute(accountAddress, verifierContractAddressCredit);
+          setVerifiedCredit(verifiedCreditResult);
+          setEligibleCredit(true);
+        } catch (error) {
+          console.error("Credit verification failed:", error);
+          setVerifiedCredit(false);
+          setEligibleCredit(false);
+        }
       }
 
       if (spiritTwitter) {
-        const verifiedTwitterResult = await contractTwitter.validateAttribute(accountAddress, verifierContractAddressTwitter);
-        setVerifiedTwitter(verifiedTwitterResult);
+        try {
+          const verifiedTwitterResult = await contractTwitter.validateAttribute(accountAddress, verifierContractAddressTwitter);
+          setVerifiedTwitter(verifiedTwitterResult);
+          setEligibleTwitter(true);
+        } catch (error) {
+          console.error("Twitter verification failed:", error);
+          setVerifiedTwitter(false);
+          setEligibleTwitter(false);
+        }
       }
     } catch (error) {
       console.error("Error checking spirit or validating attributes:", error);
@@ -146,9 +170,14 @@ const Verify = () => {
               Verified
             </div>
           )}
-          {!verifiedAge && (
+          {!verifiedAge && eligibleAge && (
             <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
               Not Verified
+            </div>
+          )}
+          {!verifiedAge && !eligibleAge && (
+            <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
+              Not Eligible
             </div>
           )}
         </div>
@@ -159,9 +188,14 @@ const Verify = () => {
               Verified
             </div>
           )}
-          {!verifiedTwitter && (
+          {!verifiedTwitter && eligibleTwitter && (
             <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
               Not Verified
+            </div>
+          )}
+          {!verifiedTwitter && !eligibleTwitter && (
+            <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
+              Not Eligible
             </div>
           )}
         </div>
@@ -173,14 +207,19 @@ const Verify = () => {
               Verified
             </div>
           )}
-          {!verifiedCredit && (
+          {!verifiedCredit && eligibleCredit && (
             <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
               Not Verified
             </div>
           )}
+          {!verifiedCredit && !eligibleCredit && (
+            <div className="px-4 py-2 font-extrabold rounded-full bg-red-400 text-white">
+              Not Eligible
+            </div>
+          )}
         </div>
 
-        {(!verifiedAge || !verifiedCredit || !verifiedTwitter) && (
+        {(!verifiedAge || !verifiedCredit || !verifiedTwitter || !eligibleAge || !eligibleCredit || !eligibleTwitter) && (
           <p className="font-extrabold">
             Sorry fam, You're not eligible...
           </p>
