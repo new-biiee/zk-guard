@@ -54,7 +54,7 @@ The idea for zk Guard was inspired by **Vitalik Buterin's** article on Soulbound
 
 ## User Flow:
 
-![zk-Guard-Flow](./assets/user-flow.png)
+![zk-Guard-Flow](../../assets/user-flow.png)
 
 ### Authentication Process:
 - Users initiate the Proof generation by validating an anonymized claim pertaining to their exclusive data.
