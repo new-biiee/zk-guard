@@ -28,7 +28,7 @@ cd ..
 snarkjs powersoftau new bn128 12 pot12_0000.ptau -v
 
 # Contribute to the created ceremony
-snarkjs powersoftau contribute pot12_0000.ptau pot12_0001.ptau --name="P=zkpVault" -v -e="random text"
+snarkjs powersoftau contribute pot12_0000.ptau pot12_0001.ptau --name="P=zkGuard" -v -e="random text"
 
 # 2. Phase 2 of POT
 # Prepare for the start of phase 2
