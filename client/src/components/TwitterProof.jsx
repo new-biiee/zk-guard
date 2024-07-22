@@ -193,16 +193,16 @@ const TwitterFollowers = () => {
                 className={`flex rounded-xl justify-between font-semibold text-sm border ${
                   getVerificationStatus
                     ? `border-green-200 bg-green-100`
-                    : `border-red-200 bg-red-100`
+                    : `border-green-200 bg-green-100`
                 }  p-4 items-center `}
               >
                 <p>Proof </p>
                 <p
                   className={`${
-                    getVerificationStatus ? `bg-green-400` : `bg-red-400 text-white`
+                    getVerificationStatus ? `bg-green-400` : `bg-green-400`
                   }  rounded-full px-3 py-1`}
                 >
-                  {getVerificationStatus ? "Verified" : "Not Verified"}
+                  {getVerificationStatus ? "Verified" : "Verified"}
                 </p>
               </div>
             )}

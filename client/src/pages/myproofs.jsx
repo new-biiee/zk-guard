@@ -116,10 +116,6 @@ const MyProofs = () => {
   const handleBurnCreditButton = () => burnProof(creditContract, setIsBurnCreditLoading, "Credit");
   const handleBurnTwitterButton = () => burnProof(twitterContract, setIsBurnTwitterLoading, "Twitter");
 
-  if (!mounted) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="h-[100vh] w-full bg-gradient-to-r from-blue-400 to-cyan-400">
       <Toaster />

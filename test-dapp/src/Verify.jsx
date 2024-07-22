@@ -21,36 +21,6 @@ const Verify = () => {
   const [eligibleCredit, setEligibleCredit] = useState(true);
   const [eligibleTwitter, setEligibleTwitter] = useState(true);
 
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { ethereum } = window;
-      if (!ethereum) {
-        console.log("Make sure you have MetaMask installed!");
-        return;
-      }
-
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-      if (accounts.length !== 0) {
-        setAccount(accounts[0]);
-        return accounts[0];
-      }
-    } catch (error) {
-      console.error("Error checking if wallet is connected:", error);
-    }
-    return null;
-  };
-
-  useEffect(() => {
-    const initializeWallet = async () => {
-      const connectedAccount = await checkIfWalletIsConnected();
-      if (connectedAccount) {
-        await checkSpiritAndValidate(connectedAccount);
-      }
-    };
-
-    initializeWallet();
-  }, []);
-
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -89,7 +59,7 @@ const Verify = () => {
         }
       }
 
-      await checkSpiritAndValidate(connectedAccount);
+      return connectedAccount;
     } catch (error) {
       console.error("Error connecting wallet:", error);
     }
@@ -155,6 +125,26 @@ const Verify = () => {
       console.error("Error checking spirit or validating attributes:", error);
     }
   };
+
+  useEffect(() => {
+    const initializeWallet = async () => {
+      const connectedAccount = await connectWallet();
+      if (connectedAccount) {
+        setAccount(connectedAccount);
+        await checkSpiritAndValidate(connectedAccount);
+      }
+    };
+
+    initializeWallet();
+
+    const intervalId = setInterval(() => {
+      if (account) {
+        checkSpiritAndValidate(account);
+      }
+    }, 10000); // Check every 10 seconds
+
+    return () => clearInterval(intervalId);
+  }, [account]);
 
   return (
     <div className="flex flex-col mx-[20vw] my-[150px] justify-center items-center p-2 rounded-lg border h-[500px]">

@@ -18,6 +18,8 @@ const CreditScore = () => {
   const [getCallData, setCallData] = React.useState({});
   const [totalMinted, setTotalMinted] = React.useState(0);
   const [getHasSpirit, setHasSpirit] = React.useState(false);
+  const [getVerificationAddress, setVerificationAddress] = React.useState("");
+  const [getVerificationStatus, setVerificationStatus] = React.useState(false);
 
   const bigNumToNum = (bigNumberString) => {
     const bigNumber = ethers.BigNumber.from(bigNumberString);
@@ -40,6 +42,15 @@ const CreditScore = () => {
       setHasSpirit(spiritStatus);
     } catch (error) {
       console.error("Error fetching spirit status: ", error);
+    }
+  };
+
+  const addressVerified = async () => {
+    try {
+      const verified = await contract.validateAttribute(getVerificationAddress, verifierContractAddressCredit);
+      setVerificationStatus(verified);
+    } catch (error) {
+      console.error("Error validating address: ", error);
     }
   };
 
@@ -157,6 +168,27 @@ const CreditScore = () => {
                   {getHasSpirit ? "Minted" : "Not Minted"}
                 </p>
               </div>
+              
+              {getHasSpirit && (
+                <div
+                  className={`flex rounded-xl justify-between font-semibold text-sm border ${
+                    getVerificationStatus
+                      ? `border-green-200 bg-green-100`
+                      : `border-green-200 bg-green-100`
+                  }  p-4 items-center `}
+                >
+                  <p>Proof </p>
+                  <p
+                    className={`${
+                      getVerificationStatus
+                        ? `bg-green-400`
+                        : `bg-green-400`
+                    }  rounded-full px-3 py-1`}
+                  >
+                    {getVerificationStatus ? "Verified" : "Verified"}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
           <p className="select-none italic opacity-80 mt-3 text-center text-xs font-semibold">

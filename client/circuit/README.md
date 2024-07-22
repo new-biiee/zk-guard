@@ -94,7 +94,7 @@ _For more examples, please refer to the [Documentation](https://github.com/new-b
 
 ## Built With
 
-### LUKSO's Spec
+### Contract's Spec
 - [SpiritLink for CreditScore](https://cardona-zkevm.polygonscan.com/address/0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540) (polygon cardona tesetnet deployment link) `0xF0D56Ce5A1b550F07481dc98959EFD79eE9ab540`
 - [SpiritLink for Follower](https://cardona-zkevm.polygonscan.com/address/0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1) (polygon cardona tesetnet deployment link) `0xC2D208f5E94f4d7c0BFb3bb8352530f28bb31FE1`
 - [SpiritLink for Age](https://cardona-zkevm.polygonscan.com/address/0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70) (polygon cardona tesetnet deployment link) `0xd34Dfde3EaBFAa64fD60944b045003F2B9632D70`

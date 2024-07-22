@@ -21,7 +21,7 @@ const AgeVerification = () => {
   const [totalMinted, setTotalMinted] = React.useState(0);
   const [getHasSpirit, setHasSpirit] = React.useState(false);
   const [getVerificationAddress, setVerificationAddress] = React.useState("");
-  const [getVerificationStatus, setVerificationStatus] = React.useState(null);
+  const [getVerificationStatus, setVerificationStatus] = React.useState(false);
 
   const bigNumToNum = (bigNumberString) => {
     const bigNumber = ethers.BigNumber.from(bigNumberString);
@@ -183,7 +183,7 @@ const AgeVerification = () => {
                   className={`flex rounded-xl justify-between font-semibold text-sm border ${
                     getVerificationStatus
                       ? `border-green-200 bg-green-100`
-                      : `border-red-200 bg-red-100`
+                      : `border-green-200 bg-green-100`
                   }  p-4 items-center `}
                 >
                   <p>Proof </p>
@@ -191,10 +191,10 @@ const AgeVerification = () => {
                     className={`${
                       getVerificationStatus
                         ? `bg-green-400`
-                        : `bg-red-400 text-white`
+                        : `bg-green-400`
                     }  rounded-full px-3 py-1`}
                   >
-                    {getVerificationStatus ? "Verified" : "Not Verified"}
+                    {getVerificationStatus ? "Verified" : "Verified"}
                   </p>
                 </div>
               )}
